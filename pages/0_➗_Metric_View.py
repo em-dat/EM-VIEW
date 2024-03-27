@@ -1,28 +1,12 @@
 import streamlit as st
-from utils.sidebar import init_filters, filter_data, add_logo
+from utils.sidebar import init_filters, filter_data
+from utils.layout import format_num, init_layout
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 from utils.distypes import type_order, type_colors
 
-st.markdown("""
-  <style>
-    .st-emotion-cache-z5fcl4 {
-      margin-top: -65px;
-    }
-  </style>
-""", unsafe_allow_html=True)
-
-
-def format_num(num):
-    try:
-        return f"{int(num):,}"
-    except ValueError:
-        return None
-
-
-add_logo()
-st.sidebar.subheader('Filters')
+init_layout()
 
 if st.session_state['data'] is None:
     st.error('Please, upload your dataset first on the main page', icon="🚨")
@@ -170,6 +154,4 @@ else:
     fig.update_layout(title="Percentages per Disaster Types", showlegend=False)
     fig.update_xaxes(range=[0, 100])
     st.plotly_chart(fig, height=600, use_container_width=True)
-
-    st.write(st.session_state)
 

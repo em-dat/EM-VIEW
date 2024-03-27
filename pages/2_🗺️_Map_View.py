@@ -1,7 +1,8 @@
 import streamlit as st
 import pandas as pd
 import pandas as pd
-from utils.sidebar import init_filters, add_logo
+from utils.sidebar import init_filters
+from utils.layout import init_layout
 import plotly.express as px
 import plotly.graph_objects as go
 
@@ -26,15 +27,14 @@ def generate_colorscale(bottom_color, top_color):
     return colorscale
 
 
-add_logo()
-st.sidebar.subheader('Filters')
+init_layout()
 
 if st.session_state['data'] is None:
     st.error('Please, upload your dataset first on the main page', icon="🚨")
 else:
     data = st.session_state['data_filtered']
     init_filters()
-    if st.session_state['country'] is not None:
+    if st.session_state['filter.country'] is not None:
         st.error('Mapping tool cannot be set for one single country', icon="🚨")
     else:
         st.header('EM-DAT Maps')
@@ -161,5 +161,3 @@ else:
         )
 
         st.plotly_chart(fig, use_container_width=True)
-
-        st.write(st.session_state)
