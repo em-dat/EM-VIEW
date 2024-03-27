@@ -1,14 +1,31 @@
+from typing import Tuple, Dict, Any
 import io
-from datetime import date
-from utils.layout import init_layout
+
 import pandas as pd
 import streamlit as st
 
+from utils.layout import init_layout
 from utils.sidebar import init_filters, filter_data
 
 
 @st.cache_data
-def load_data(file):
+def load_data(file: str) -> Tuple[pd.DataFrame, Dict[str, Any]]:
+    """
+    Load data from EM-DAT xlsx file.
+
+    Parameters
+    ----------
+    file: str
+        The xlsx file to load the data from.
+
+    Returns
+    -------
+    tuple: (pd.DataFrame, Dict[str, Any])
+        Contains data and metadata extracted from the xlsx file.
+        The first item is a DataFrame containing the data.
+        The second item is a dictionary containing the metadata.
+
+    """
     data = pd.read_excel(uploaded_file, sheet_name=0)
     metadata = dict(
         pd.read_excel(uploaded_file, sheet_name=1, header=None).values)
