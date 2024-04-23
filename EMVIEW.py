@@ -1,11 +1,13 @@
-from typing import Tuple, Dict, Any
 import io
 
 import pandas as pd
 import streamlit as st
+from typing import Any, Dict, Tuple
 
 from utils.layout import init_layout
-from utils.sidebar import init_filters, filter_data
+from utils.sidebar import filter_data, init_filters
+
+st.elements.utils._shown_default_value_warning = True  # uncomment for warnings
 
 
 @st.cache_data
@@ -26,10 +28,10 @@ def load_data(file: str) -> Tuple[pd.DataFrame, Dict[str, Any]]:
         The second item is a dictionary containing the metadata.
 
     """
-    data = pd.read_excel(uploaded_file, sheet_name=0)
-    metadata = dict(
-        pd.read_excel(uploaded_file, sheet_name=1, header=None).values)
-    return data, metadata
+    file_data = pd.read_excel(file, sheet_name=0)
+    file_metadata = dict(
+        pd.read_excel(file, sheet_name=1, header=None).values)
+    return file_data, file_metadata
 
 
 # App
@@ -38,7 +40,6 @@ def load_data(file: str) -> Tuple[pd.DataFrame, Dict[str, Any]]:
 init_layout()
 
 if "data" not in st.session_state:
-    st.session_state["data"] = None
     st.session_state['is_filter'] = False
 
 st.write("# EM-VIEW Disaster Dashboard")
@@ -53,8 +54,8 @@ occurrence and impact**.
 1. EM-DAT data is freely accessible for non-commercial use after registration at 
 [public.emdat.be](https://public.emdat.be). 
 2. Uploading your EM-DAT data file (:point_down: below).
-3. Use the **EM-VIEW** pages (:point_left: sidebar) to access summary statistics, 
-tabular data, maps, and time series.  
+3. Use the **EM-VIEW** pages (:point_left: sidebar) to access summary 
+statistics, tabular data, maps, and time series.  
 4. Change the scope of your analysis using the :point_left: sidebar filters.
          """)
 st.write("## Upload your EM-DAT file")
@@ -67,11 +68,9 @@ if uploaded_file is not None:
     st.session_state['metadata'] = metadata
     st.session_state['filename'] = uploaded_file.name
 
-# st.sidebar.subheader('Filters')
-
-if st.session_state['data'] is not None:
+if 'data' in st.session_state:
     st.success("File upload successful")
-
+    data = st.session_state['data']
     if not st.session_state['is_filter']:
         st.session_state['filter.start'] = data['Start Year'].min()
         st.session_state['filter.end'] = data['Start Year'].max()
@@ -86,7 +85,7 @@ if st.session_state['data'] is not None:
     init_filters()
     filter_data()
 
-    exp1 = st.expander('**Medatata**')
+    exp1 = st.expander('**Metadata**')
     exp1.write(st.session_state['filename'])
     exp1.write(st.session_state['metadata'])
     data = st.session_state['data']
