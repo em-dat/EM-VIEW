@@ -5,7 +5,7 @@ from utils.layout import init_layout
 
 init_layout()
 
-if st.session_state['data'] is None:
+if "data" not in st.session_state:
     st.error('Please, upload your dataset first on the main page', icon="🚨")
 else:
     data = st.session_state['data_filtered']

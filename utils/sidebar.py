@@ -1,6 +1,9 @@
 from datetime import date
 import streamlit as st
 
+DOC_URI = "https://doc.emdat.be/docs"
+CLASSIF_KEY_DOC_URI = f"{DOC_URI}/data-structure-and-content/disaster-classification-system/#main-classification-tree"
+
 
 def init_filters():
     # Get session state variables
@@ -12,15 +15,19 @@ def init_filters():
 
     # Set up filters
     col1, col2 = st.sidebar.columns(2)
+
     col1.number_input(label='**Start year**',
                       min_value=st.session_state['data']['Start Year'].min(),
-                      #value=st.session_state['filter.start'],
+                      value=st.session_state['filter.start'],
                       max_value=date.today().year,
-                      key='filter.start', on_change=filter_data)
+                      key='filter.start',
+                      on_change=filter_data),
+
     col2.number_input(label='**End year**',
                       min_value=st.session_state['data']['Start Year'].min(),
                       value=st.session_state['filter.end'],
-                      max_value=date.today().year, key='filter.end',
+                      max_value=date.today().year,
+                      key='filter.end',
                       on_change=filter_data)
 
     st.sidebar.text_input(label="**Classification Key**",
@@ -29,22 +36,25 @@ def init_filters():
                           on_change=filter_data,
                           help="Enter the key or its initial part to filter")
     st.sidebar.caption(
-        "_Check classification keys [here](https://doc.emdat.be/docs/data-structure-and-content/disaster-classification-system/#main-classification-tree)._")
+        f"_Check classification keys [here]({CLASSIF_KEY_DOC_URI})._")
 
     st.sidebar.selectbox(label="**Region**", options=region_list,
-                         index=region_list.index(st.session_state['filter.region']),
+                         index=region_list.index(
+                             st.session_state['filter.region']),
                          key="filter.region",
                          format_func=lambda x: 'All' if x is None else x,
                          on_change=update_region)
 
     st.sidebar.selectbox(label="**Subregion**", options=subregion_list,
-                         index=subregion_list.index(st.session_state['filter.subregion']),
+                         index=subregion_list.index(
+                             st.session_state['filter.subregion']),
                          key="filter.subregion",
                          format_func=lambda x: 'All' if x is None else x,
                          on_change=update_subregion)
 
     st.sidebar.selectbox(label="**Country**", options=country_list,
-                         index=country_list.index(st.session_state['filter.country']),
+                         index=country_list.index(
+                             st.session_state['filter.country']),
                          key="filter.country",
                          format_func=lambda x: 'All' if x is None else x,
                          on_change=update_country)
