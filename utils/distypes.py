@@ -1,4 +1,4 @@
-type_order = [
+TYPE_ORDER = [
     'Animal incident',
     'Epidemic',
     'Infestation',
@@ -35,7 +35,7 @@ type_order = [
     'Water'
 ]
 
-type_colors = {
+TYPE_COLORS = {
     'Animal incident': '#4A8179',
     'Epidemic': '#ABD20E',
     'Infestation': '#8A935D',

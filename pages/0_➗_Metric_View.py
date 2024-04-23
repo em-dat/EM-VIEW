@@ -1,30 +1,14 @@
 import streamlit as st
-from utils.sidebar import init_filters, filter_data, add_logo
-import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
-from utils.distypes import type_order, type_colors
 
-st.markdown("""
-  <style>
-    .st-emotion-cache-z5fcl4 {
-      margin-top: -65px;
-    }
-  </style>
-""", unsafe_allow_html=True)
+from utils.sidebar import init_filters
+from utils.layout import format_num, init_layout
+from utils.distypes import TYPE_ORDER, TYPE_COLORS
 
+init_layout()
 
-def format_num(num):
-    try:
-        return f"{int(num):,}"
-    except ValueError:
-        return None
-
-
-add_logo()
-st.sidebar.subheader('Filters')
-
-if st.session_state['data'] is None:
+if 'data' not in st.session_state:
     st.error('Please, upload your dataset first on the main page', icon="🚨")
 else:
     data = st.session_state['data_filtered']
@@ -39,7 +23,8 @@ else:
     scol03.markdown('**Total Affected** :hospital:',
                     help="Total of injured, affected, and homeless people")
     scol04.markdown("**Total Dam. ('000 :heavy_dollar_sign:)**",
-                    help="Total Damage in thousand of US$, adjusted for inflation.")
+                    help="Total Damage in thousand of US$, adjusted for "
+                         "inflation.")
 
     scol10, scol11, scol12, scol13, scol14 = st.columns(5)
     scol10.markdown('#### Total')
@@ -77,11 +62,12 @@ else:
                                  'Total Affected'].sum().mean()),
                   label_visibility='collapsed'
                   )
-    scol24.metric("Total Dam. ('000 :heavy_dollar_sign:)",
-                  format_num(data.groupby('Start Year')[
-                                 "Total Damage, Adjusted ('000 US$)"].sum().mean()),
-                  label_visibility='collapsed'
-                  )
+    scol24.metric(
+        "Total Dam. ('000 :heavy_dollar_sign:)", format_num(
+            data.groupby('Start Year')[
+                "Total Damage, Adjusted ('000 US$)"].sum().mean()),
+        label_visibility='collapsed'
+    )
 
     scol30, scol31, scol32, scol33, scol34 = st.columns(5)
     scol30.markdown('#### Yearly Median')
@@ -101,11 +87,13 @@ else:
                                  'Total Affected'].sum().median()),
                   label_visibility='collapsed'
                   )
-    scol34.metric("Total Dam. ('000 :heavy_dollar_sign:)",
-                  format_num(data.groupby('Start Year')[
-                                 "Total Damage, Adjusted ('000 US$)"].sum().median()),
-                  label_visibility='collapsed'
-                  )
+    scol34.metric(
+        "Total Dam. ('000 :heavy_dollar_sign:)",
+        format_num(
+            data.groupby('Start Year')[
+                "Total Damage, Adjusted ('000 US$)"].sum().median()),
+        label_visibility='collapsed'
+    )
     scol40, scol41, scol42, scol43, scol44 = st.columns(5)
     scol40.markdown('#### Reporting %')
     scol41.metric(
@@ -141,8 +129,9 @@ else:
     df['affected'] = (df['affected'] / df['affected'].sum()) * 100
     df['damage'] = (df['damage'] / df['damage'].sum()) * 100
     df = df.round(1)
-    order = [i for i in type_order if i in df['Disaster Type'].unique()][::-1]
-    colors = [c for k,c in type_colors.items() if k in df['Disaster Type'].unique()][::-1]
+    order = [i for i in TYPE_ORDER if i in df['Disaster Type'].unique()][::-1]
+    colors = [c for k, c in TYPE_COLORS.items() if
+              k in df['Disaster Type'].unique()][::-1]
     df = df.set_index('Disaster Type').loc[order].reset_index()
 
     # Create subplots
@@ -150,12 +139,13 @@ else:
         rows=1, cols=4,
         shared_yaxes=True,
         subplot_titles=(
-        "N° Count", "Total Deaths", "Total Affected", "Total Damage")
+            "N° Count", "Total Deaths", "Total Affected", "Total Damage")
     )
 
     # Adding the horizontal bar charts
     fig.add_trace(go.Bar(y=df['Disaster Type'], x=df['count'], orientation='h',
-                         marker_color=colors, name='N° Count'), 1, 1) #"#214B8C"
+                         marker_color=colors, name='N° Count'), 1,
+                  1)  # "#214B8C"
     fig.add_trace(go.Bar(y=df['Disaster Type'], x=df['death'], orientation='h',
                          marker_color=colors, name='Death'), 1, 2)
     fig.add_trace(
@@ -170,6 +160,3 @@ else:
     fig.update_layout(title="Percentages per Disaster Types", showlegend=False)
     fig.update_xaxes(range=[0, 100])
     st.plotly_chart(fig, height=600, use_container_width=True)
-
-    st.write(st.session_state)
-
