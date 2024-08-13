@@ -12,6 +12,12 @@ DEFAULT_COLUMNS = [
     "Total Damage, Adjusted ('000 US$)"
 ]
 
+# Update default style to format years without thousands separators
+DEFAULT_STYLE = {
+    "Start Year": '{:.0f}',
+    "End Year": '{:.0f}'
+}
+
 st.session_state["page"] = "table"
 
 if "data" not in st.session_state:
@@ -28,7 +34,11 @@ else:
 
     display_rows = 15
     st.dataframe(
-        data[columns],
+        data[columns].style.format(
+            DEFAULT_STYLE,
+            precision=0,
+            thousands=','
+        ),
         height=(display_rows + 1) * 35 + 3,
         use_container_width=True
     )
