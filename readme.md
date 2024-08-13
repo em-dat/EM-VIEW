@@ -8,7 +8,7 @@ You can download the EM-DAT data by registering at https://public.emdat.be/.
 
 ## Use the app on Streamlit Community Cloud
 
-
+Visit https://emview.streamlit.app/
 
 ## Install, Use, and Custom the App Locally 
 
