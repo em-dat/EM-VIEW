@@ -43,3 +43,8 @@ With streamlit installed, use the following command to run the app:
 MIT, see attached `License` file. This license applies to the content of this 
 repository and does not cover the EM-DAT data usage rights. See 
 [EM-DAT Terms of Use](https://doc.emdat.be/docs/legal/).
+
+## Acknowledgement
+
+The initial version of EM-VIEW was developed under the EM-DAT project with 
+the support of USAID. 
