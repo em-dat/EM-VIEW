@@ -67,4 +67,20 @@ def app() -> None:
     init_config()
     init_sidebar_filters()
 
+    st.sidebar.link_button(
+        ":globe_with_meridians: EM-DAT Project Website",
+        url="https://www.emdat.be/",
+        use_container_width=True
+    )
+    st.sidebar.link_button(
+        ":arrow_down: EM-DAT Data Download",
+        url="https://public.emdat.be/",
+        use_container_width=True
+    )
+    st.sidebar.link_button(
+        ":blue_book: EM-DAT Documentation",
+        url="https://doc.emdat.be/",
+        use_container_width=True
+    )
+
 app()
