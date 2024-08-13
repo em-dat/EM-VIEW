@@ -94,10 +94,13 @@ def process_region() -> None:
             ss['filter.subregion'] = None
         if country not in valid_data['country']:
             ss['filter.country'] = None
+        ss['subregion_list'] = [None] + sorted(valid_data['subregion'].unique())
+        ss['country_list'] = [None] + sorted(valid_data['country'].unique())
     else:
         ss['filter.subregion'] = None
         ss['filter.country'] = None
-
+        ss['subregion_list'] = [None] + sorted(rd['subregion'].unique())
+        ss['country_list'] = [None] + sorted(rd['country'].unique())
 
 def process_subregion() -> None:
     """Process subregion and update other levels accordingly."""
@@ -112,8 +115,14 @@ def process_subregion() -> None:
             ss['filter.region'] = valid_data.iloc[0]['region']
         if country not in valid_data['country']:
             ss['filter.country'] = None
+        ss['country_list'] = [None] + sorted(valid_data['country'].unique())
     else:
         ss['filter.country'] = None
+        if region:
+            valid_data = rd[rd['region'] == region]
+            ss['country_list'] = [None] + sorted(valid_data['country'].unique())
+        else:
+            ss['country_list'] = [None] + sorted(rd['country'].unique())
 
 
 def process_country() -> None:
@@ -174,6 +183,7 @@ def set_filters_to_default() -> None:
     """Set or reset filters to default values"""
     ss = st.session_state
     data = ss["data"]
+    rd = ss['region_data']
     ss['filter.disabled'] = False
     year_min = data['Start Year'].min()
     year_max = data['Start Year'].max()
@@ -184,3 +194,6 @@ def set_filters_to_default() -> None:
     ss['filter.region'] = None
     ss['filter.subregion'] = None
     ss['filter.country'] = None
+    ss['region_list'] = [None] + sorted(rd['region'].unique())
+    ss['subregion_list'] = [None] + sorted(rd['subregion'].unique())
+    ss['country_list'] = [None] + sorted(rd['country'].unique())
