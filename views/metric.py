@@ -22,8 +22,6 @@ else:
     </style>
     """)
 
-    st.header('Metric View')
-
     # Table Header Row - 0
     # --------------------
     scol00, scol01, scol02, scol03, scol04 = st.columns(

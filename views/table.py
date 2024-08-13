@@ -24,7 +24,6 @@ if "data" not in st.session_state:
     st.error('Please, upload your dataset first on the main page', icon="🚨")
 else:
     data = get_filtered_data()
-    st.header('Table View')
 
     columns = st.multiselect(
         "Select columns:",

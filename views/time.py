@@ -18,7 +18,7 @@ if "data" not in st.session_state:
     st.error('Please, upload your dataset first on the main page', icon="🚨")
 else:
     data = get_filtered_data()
-    st.header('Time View')
+
     cols = st.columns(2)
     variable = cols[0].selectbox(
         "Impact Variable",
