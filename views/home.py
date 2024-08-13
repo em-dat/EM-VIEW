@@ -1,3 +1,4 @@
+import io
 from typing import Any
 
 import pandas as pd
@@ -27,10 +28,10 @@ def load_data(file: str) -> tuple[pd.DataFrame, dict[str, Any]]:
         The second item is a dictionary containing the metadata.
 
     """
-    file_data = pd.read_excel(file, sheet_name=0)
-    file_metadata = dict(
+    data = pd.read_excel(file, sheet_name=0)
+    metadata = dict(
         pd.read_excel(file, sheet_name=1, header=None).values)
-    return file_data, file_metadata
+    return data, metadata
 
 
 # Page content
@@ -43,12 +44,13 @@ st.write(PAGE_HELP_TEXT[st.session_state['page']])
 
 uploaded_file = st.file_uploader(
     "Upload your EM-DAT xlsx file...",
-    type=['xlsx']
+    type=['xlsx'],
 )
 
 if uploaded_file:
-    ss = st.session_state
     data, metadata = load_data(uploaded_file)
+    st.success("File upload successful")
+    ss = st.session_state
     ss['data'] = data
     ss['metadata'] = metadata
     ss['filename'] = uploaded_file.name
@@ -58,5 +60,13 @@ if uploaded_file:
     ss['country_list'] = [None] + sorted(region_data['Country'].unique())
     region_data.columns = [i.lower() for i in region_data.columns]
     ss['region_data'] = region_data
+    buffer = io.StringIO()
+    data.info(buf=buffer)
+    ss['info'] = buffer.getvalue()
 
-    st.success("File upload successful")
+if "data" in st.session_state:
+    # Display File Metadata
+    exp1 = st.expander('**Metadata**')
+    exp1.write(f"**Filename**: {st.session_state['filename']}")
+    exp1.write(st.session_state['metadata'])
+    exp1.text(st.session_state['info'])

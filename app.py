@@ -67,6 +67,8 @@ def app() -> None:
     init_config()
     init_sidebar_filters()
 
+    # Sidebar link
+
     st.sidebar.link_button(
         ":globe_with_meridians: EM-DAT Project Website",
         url="https://www.emdat.be/",
@@ -82,5 +84,8 @@ def app() -> None:
         url="https://doc.emdat.be/",
         use_container_width=True
     )
+
+    # st.session_state # uncomment for debugging
+
 
 app()
