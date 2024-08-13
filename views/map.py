@@ -4,7 +4,6 @@ import streamlit as st
 from utils.filters import get_filtered_data
 from utils.layout import generate_colorscale, PAGE_HELP_TEXT
 
-CMAP_DOC_URI = "https://plotly.com/python/builtin-colorscales/"
 SCOPES = ['world', 'africa', 'asia', 'europe', 'north america', 'south america']
 COLORMAPS = [
     'aggrnyl', 'agsunset', 'algae', 'amp', 'armyrose', 'balance', 'blackbody',
@@ -47,15 +46,13 @@ else:
     else:
         period = f"{year_min}"
 
-    st.header('Map View')
-
     if st.session_state['filter.country'] is not None:
         st.error('Mapping tool cannot be set for one single country', icon="🚨")
     else:
 
         # Controls
         row0_cols = st.columns(3, vertical_alignment="center")
-        row1_cols = st.columns(4, vertical_alignment="center")
+        row1_cols = st.columns([1,1,1,3], vertical_alignment="center")
         variable = row0_cols[0].selectbox(
             "Impact Variable",
             VAR_DICT.keys(),
@@ -71,13 +68,16 @@ else:
             ['Total', 'Yearly Average', 'Yearly Median']
         )
         custom = row1_cols[3].toggle('Custom Color Scale', value=False)
+        land_color = row1_cols[0].color_picker(
+            label='No Data',
+            value='#dddddd'
+        )
         if not custom:
-            cmap = row1_cols[0].selectbox(
+            cmap = row1_cols[1].selectbox(
                 "Color Scale", COLORMAPS, index=COLORMAPS.index('amp')
             )
-            reversed = row1_cols[2].checkbox('Reversed Scale', value=True)
-            row1_cols[1].caption(
-                f"See [Plotly Documentation]({CMAP_DOC_URI})")
+            reversed = row1_cols[2].toggle('Reversed Scale', value=True)
+
             if reversed:
                 cmap += '_r'
         else:
@@ -135,12 +135,14 @@ else:
                 autocolorscale=False,
                 reversescale=True,
                 marker_line_color='darkgray',
-                marker_line_width=.5
+                marker_line_width=.5,
             )
         )
 
         fig.update_geos(
-            resolution=50
+            resolution=50,
+            showland=True,
+            landcolor=land_color,
         )
         fig.update_layout(
             title={

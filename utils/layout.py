@@ -99,7 +99,7 @@ PAGE_HELP_TEXT = {
     **Color Scales**
     
     Color scales can be selected based on those available from the `plotly`
-    graphing libraries. More info: https://plotly.com/python/colorscales/.
+    graphing libraries. More info: https://plotly.com/python/builtin-colorscales/.
     
     Alternatively, the user can use a custom color scale, enabled by the 
     :point_up_2: "Custom Color Scale" toggle button. 
