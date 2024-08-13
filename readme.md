@@ -1,8 +1,18 @@
 # EM-VIEW: A Community Dashboard for your EM-DAT Data
 
+![Optional Alt Text](images/emview_preview.png)
+
+
 This is a [Streamlit](https://streamlit.io/) Web App designed for visualize 
 the [EM-DAT International Disaster Database](https://www.emdat.be/) data 
-contained in your official EM-DAT xlsx file.
+contained in your official EM-DAT xlsx file. EM-VIEW has multiple tabs with 
+specific features responding to filters:
+- Metric view: impact statistics indicators with their disaggregation by 
+disaster types;
+- Table view: the EM-DAT dataframe that can be filtered by column names;
+- Map view: global or regional impact maps at the country level;
+- Time view: yearly-aggregated timeseries of impact, with multiple stacking 
+options.
 
 You can download the EM-DAT data by registering at https://public.emdat.be/.
 
