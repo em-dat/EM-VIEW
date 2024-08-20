@@ -255,7 +255,7 @@ else:
     # Update layout
     fig.update_layout(
         title="Distribution per Disaster Types (%)",
-        height=500 + 10 * len(df) ** .5,
+        height=500 + 10 * len(df) ** .75,
         showlegend=False
     )
     fig.update_xaxes(range=[0, 100])
