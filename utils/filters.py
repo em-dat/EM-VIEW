@@ -182,15 +182,18 @@ def get_filtered_data() -> pd.DataFrame:
 def set_filters_to_default() -> None:
     """Set or reset filters to default values"""
     ss = st.session_state
+    if "data" not in ss:
+        return
     data = ss["data"]
     rd = ss['region_data']
     ss['filter.disabled'] = False
-    year_min = data['Start Year'].min()
-    year_max = data['Start Year'].max()
+    year_min = int(data['Start Year'].min())
+    year_max = int(data['Start Year'].max())
     ss['filter.year_min'] = year_min
     ss['filter.year_max'] = year_max
     ss['filter.start'] = year_min
     ss['filter.end'] = year_max
+    ss['filter.classification_key'] = ""
     ss['filter.region'] = None
     ss['filter.subregion'] = None
     ss['filter.country'] = None
