@@ -8,14 +8,17 @@ PAGE_HELP_TEXT = {
     occurrence and impact**. 
     1. EM-DAT data is freely accessible for non-commercial use after 
     registration at [public.emdat.be](https://public.emdat.be). 
-    2. Uploading your EM-DAT data file (:point_down: below).
+    2. Choose your loading method (:point_down: below): 
+        - **Upload your EM-DAT file**: upload an Excel file you previously downloaded.
+        - **Load the EM-DAT archive**: fetch the latest public version of the EM-DAT dataset.
+        - **Use API key**: fetch data directly using your EM-DAT API key.
     3. Use the **EM-VIEW** pages (:point_left: sidebar) to access summary 
     statistics, tabular data, maps, and time series.  
     4. Change the scope of your analysis using the :point_left: sidebar filters.
     
-    ## Upload your EM-DAT file
+    ## Load your EM-DAT data
     """,
-    "metric": """
+    "metric": r"""
         The Metric View page displays _aggregated statistics_ for the main
         EM-DAT _impact variables_ in the dataset or its filtered selection. 
         The numbers are calculated using the provided EM-DAT file. Users may 
@@ -70,7 +73,7 @@ PAGE_HELP_TEXT = {
     the [EM-DAT Public Table](https://doc.emdat.be/docs/data-structure-and-content/emdat-public-table/) 
     documentation.
     """,
-    "map": """
+    "map": r"""
     The Map View page makes it possible to build maps at the country level 
     based on the uploaded dataset or its filtered selection. Users may use the 
     :point_left: sidebar filters to explore subsets of the data.
