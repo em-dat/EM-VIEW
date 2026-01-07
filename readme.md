@@ -22,7 +22,7 @@ Visit https://emview.streamlit.app/
 
 ## Install, Use, and Customize the App Locally 
 
-The app relies on streamlit version 1.37.
+The app relies on streamlit version 1.52.
 
 ### Install Dependencies:
    ```bash
