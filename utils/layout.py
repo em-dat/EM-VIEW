@@ -4,19 +4,24 @@ PAGE_HELP_TEXT = {
     [**EM-DAT**](https://www.emdat.be) **International Disaster 
     Database** dataset. 
     
-    EM-DAT contains data about **:earth_africa: global :collision: disaster 
+    EM-DAT contains data about **:earth_africa: global :boom: disaster 
     occurrence and impact**. 
-    1. EM-DAT data is freely accessible for non-commercial use after 
-    registration at [public.emdat.be](https://public.emdat.be). 
-    2. Choose your loading method (:point_down: below): 
-        - **Upload your EM-DAT file**: upload an Excel file you previously downloaded.
-        - **Load the EM-DAT archive**: fetch the latest public version of the EM-DAT dataset.
-        - **Use API key**: fetch data directly using your EM-DAT API key.
-    3. Use the **EM-VIEW** pages (:point_left: sidebar) to access summary 
+    1. Choose your loading method (:point_down: below): 
+        - **Upload your EM-DAT file**: upload an Excel file you previously 
+          pre-filtered and downloaded. EM-DAT data is freely accessible for 
+          non-commercial use after registration at 
+          [public.emdat.be](https://public.emdat.be). 
+        - **Load the EM-DAT archive**: fetch the latest 
+        [public archived version](https://doi.org/10.14428/DVN/I0LTPH) 
+        of the EM-DAT dataset (1900-2023). These archives complies with [FAIR
+        principles](https://www.go-fair.org/fair-principles/) and can be 
+        redistributed under CC-BY-NC-ND.
+        - **Use API key**: fetch data directly using your EM-DAT API key
+        (experimental). Only available to authorized users.
+    2. Use the **EM-VIEW** pages (:point_left: sidebar) to access summary 
     statistics, tabular data, maps, and time series.  
-    4. Change the scope of your analysis using the :point_left: sidebar filters.
+    3. Change the scope of your analysis using the :point_left: sidebar filters.
     
-    ## Load your EM-DAT data
     """,
     "metric": r"""
         The Metric View page displays _aggregated statistics_ for the main
@@ -124,7 +129,7 @@ PAGE_HELP_TEXT = {
     Development or the United States Government.
      
     """,
-    "time": """
+    "time": r"""
     The Time View page displays time series of yearly aggregated data based on 
     the uploaded dataset or its filtered selection. Users may use the 
     :point_left: sidebar filters to explore subsets of the data.

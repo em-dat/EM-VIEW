@@ -150,9 +150,10 @@ st.write(PAGE_HELP_TEXT[st.session_state['page']])
 
 # Data Loading Options
 # --------------------
-st.subheader("Data Loading Options")
+st.subheader("Load your EM-DAT data")
+st.write("**Data Loading Options**")
 load_option = st.radio(
-    "Select how you want to load the EM-DAT data:",
+    ":point_down: Select how you want to load the EM-DAT data:",
     [
         "Upload your EM-DAT file",
         "Load the EM-DAT archive",
