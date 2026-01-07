@@ -39,7 +39,7 @@ else:
             thousands=','
         ),
         height=(display_rows + 1) * 35 + 3,
-        use_container_width=True
+        width='stretch'
     )
     # Page Help
     # ---------
