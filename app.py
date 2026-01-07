@@ -16,7 +16,7 @@ def init_config() -> None:
             'Report a bug': "https://github.com/dadelforge/EM-VIEW/issues",
             'About': "This app has been developed at the University "
                      "of Louvain by Damien Delforge, PhD, with the "
-                     "support of USAID"}
+                     "initial support of USAID"}
     )
 
     # Logo
@@ -72,17 +72,17 @@ def app() -> None:
     st.sidebar.link_button(
         ":globe_with_meridians: EM-DAT Project Website",
         url="https://www.emdat.be/",
-        use_container_width=True
+        width='stretch'
     )
     st.sidebar.link_button(
         ":arrow_down: EM-DAT Data Download",
         url="https://public.emdat.be/",
-        use_container_width=True
+        width='stretch'
     )
     st.sidebar.link_button(
         ":blue_book: EM-DAT Documentation",
         url="https://doc.emdat.be/",
-        use_container_width=True
+        width='stretch'
     )
 
     # st.session_state # uncomment for debugging
